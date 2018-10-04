@@ -3,13 +3,18 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 
-var config = require('./config/secret');
+const config = require('./config/secret');
 const Message = require('./models/message');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static('public'));
+
+app.get('/', (req, res, next)=>{
+    res.render('index')
+})
 app.post('/message', (req, res, next)=>{
     
     var message = new Message()
@@ -25,7 +30,9 @@ app.post('/message', (req, res, next)=>{
     })
 })
 
-app.use(express.static('public'));  
-app.listen(config.port, ()=> {
-    console.log(`Server is Running on Port ${config.port}` );
-})
+
+  
+app.listen(config.port , (err) => {
+    if (err) console.log(err);
+    console.log(`Running on port ${config.port}`);
+});
