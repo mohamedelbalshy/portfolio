@@ -26,6 +26,6 @@ app.post('/message', (req, res, next)=>{
 })
 
 app.use(express.static('public'));  
-app.listen(3000, ()=> {
-    console.log('Server is Running on Port 3000' );
+app.listen(config.port, ()=> {
+    console.log(`Server is Running on Port ${config.port}` );
 })
